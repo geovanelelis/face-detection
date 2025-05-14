@@ -1,13 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>Face Detection APPIA</title>
+
+    <!-- IMPORTAÇÃO DO JAVASCRIPT -->
+    <script src="./src/js/main.js" defer type="module"></script>
+
+    <!-- IMPORTAÇÃO DO CSS -->
+    <link rel="stylesheet" href="./src/style.css" />
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <div class="title">
+      <h1>Face Detection APPIA</h1>
+      <p>Sua aplicação para detecção de rostos em tempo real</p>
+    </div>
+    <label for="file" class="file-input">
+      <div class="drop-zone" id="drop-zone">
+        <p><strong>Selecione uma imagem</strong> ou solte aqui.</p>
+      </div>
+      <input type="file" alt="enviar-imagem" id="file" />
+    </label>
+
+    <span id="result"> </span>
   </body>
 </html>
