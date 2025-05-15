@@ -19,6 +19,8 @@ export default function uploadImage(onImageReady) {
 
   const result = document.querySelector('#result')
   result.style.display = 'none'
+  result.style.width = 'auto'
+  result.style.height = '100%'
 
   input.addEventListener('change', () => {
     if (input.files.length > 0) {
