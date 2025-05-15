@@ -40,4 +40,27 @@ export default async function faceDetection() {
 
   document.body.appendChild(faceDetectionQuantity)
   console.log(`Quantidade de rostos detectados: ${detectionForSize.length}`)
+
+  const faceDetectionWithArea = detectionForSize.map((detection, index) => {
+    const area = detection.box.width * detection.box.height
+    return { index: index + 1, area }
+  })
+
+  faceDetectionWithArea.sort((a, b) => b.area - a.area)
+
+  const maxArea = faceDetectionWithArea[0]?.area || 1
+
+  const faceDetectionWithDistance = faceDetectionWithArea.map((face, i) => {
+    const scale = face.area / maxArea
+    const distance = (1 / scale).toFixed(2)
+    return {
+      index: `Rosto #${face.index}`,
+      area: face.area,
+      scale: scale,
+      distanciaAproximada: distance
+    }
+  })
+
+  console.log('Rostos ordenados por distância (mais próximo -> mais distante):')
+  faceDetectionWithDistance.forEach((f) => console.log(f))
 }
