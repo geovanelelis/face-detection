@@ -1,4 +1,4 @@
-export default function uploadImage() {
+export default function uploadImage(onImageReady) {
   const label = document.querySelector('label')
 
   function onEnter() {
@@ -20,25 +20,29 @@ export default function uploadImage() {
   const result = document.querySelector('#result')
   result.style.display = 'none'
 
-  const imgResult = document.createElement('img')
-  imgResult.id = 'img-result'
-
-  result.append(imgResult)
-
-  input.addEventListener('change', (e) => {
+  input.addEventListener('change', () => {
     if (input.files.length > 0) {
-      if (document.querySelector('#img-preview')) {
-        dropzone.removeChild(document.querySelector('#img-preview'))
-      }
+      result.style.display = 'none'
+
+      const existingPreview = document.querySelector('#img-preview')
+      if (existingPreview) dropzone.removeChild(existingPreview)
 
       const img = document.createElement('img')
       img.id = 'img-preview'
       img.src = URL.createObjectURL(input.files[0])
-
       dropzone.appendChild(img)
-      result.style.display = 'flex'
 
+      const existingResultImg = document.querySelector('#img-result')
+      if (existingResultImg) existingResultImg.remove()
+
+      const imgResult = document.createElement('img')
+      imgResult.id = 'img-result'
       imgResult.src = img.src
+      result.appendChild(imgResult)
+
+      imgResult.onload = () => {
+        onImageReady()
+      }
     }
   })
 }
